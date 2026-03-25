@@ -1,4 +1,5 @@
 package Lexcon;
 
-public class BookingProcessor {
+public interface BookingProcessor {
+    Booking processBooking(BookingRequest request);
 }

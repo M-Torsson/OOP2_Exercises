@@ -1,17 +1,45 @@
 package Lexcon;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import java.util.ArrayList;
+import java.util.List;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println("=== Tire Service Booking System ===");
+
+        // Create services
+        Service winterService = new WinterTireChange(1, "Winter Tire Change", 100, 20);
+        Service summerService = new SummerTireChange(2, "Summer Tire Change", 80, 10);
+
+        // Put them in a list (polymorphism)
+        List<Service> services = new ArrayList<>();
+        services.add(winterService);
+        services.add(summerService);
+
+        // Show prices
+        System.out.println("\nAvailable services:");
+        for (Service service : services) {
+            System.out.println(service.getName() + " price: " + (int) service.calculatePrice() + " SEK");
         }
+
+        // Create booking request
+        BookingRequest request = new BookingRequest("Alex", winterService);
+
+        // Member booking
+        BookingProcessor memberProcessor = new MemberBookingProcessor();
+        Booking memberBooking = memberProcessor.processBooking(request);
+
+        // Non-member booking
+        BookingProcessor nonMemberProcessor = new NonMemberBookingProcessor();
+        Booking nonMemberBooking = nonMemberProcessor.processBooking(request);
+
+        // Print results
+        System.out.println("\nMember booking:");
+        System.out.println(memberBooking);
+
+        System.out.println("\nNon-member booking:");
+        System.out.println(nonMemberBooking);
     }
 }

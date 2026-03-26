@@ -23,4 +23,11 @@ public class Booking {
     public double getFinalPrice() {
         return finalPrice;
     }
+
+    @Override
+    public String toString() {
+        return "Booking for: " + customerName +
+                "\nService: " + service.getName() +
+                "\nFinal price: " + (int) finalPrice + " SEK";
+    }
 }
